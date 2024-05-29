@@ -14,6 +14,7 @@ class GymGraphics:
             self.fig, ((self.node_graph, self.rewards_graph, self.max_wait_time_graph),
                        (self.que_wait_time_graph, self.que_req_time_graph, self.que_req_proc_graph)) = \
                 plt.subplots(2, 3, figsize=(14, 5))
+            self.fig.tight_layout(pad=3.0)
 
     def reset(self):
         if self.do_render:

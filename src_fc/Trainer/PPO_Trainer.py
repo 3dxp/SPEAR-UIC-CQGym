@@ -20,7 +20,7 @@ def get_action_from_output_vector(output_vector, wait_queue_size, is_training):
 def model_training(env, weights_file_name=None, is_training=False, output_file_name=None,
                    window_size=50, sys_size=0, learning_rate=0.1, gamma=0.99, batch_size=10, do_render=False, layer_size=[]):
     use_cuda = torch.cuda.is_available()
-    device = torch.device("cuda" if use_cuda else "cpu")
+    device = 'cpu'  #torch.device("cuda" if use_cuda else "cpu")
     num_inputs = window_size * 2 + sys_size * 1
     ppo = PPO(env, num_inputs, window_size, std=0.0, window_size=window_size,
               learning_rate=learning_rate, gamma=gamma, batch_size=batch_size, layer_size=layer_size)
@@ -56,7 +56,7 @@ def model_training(env, weights_file_name=None, is_training=False, output_file_n
     if is_training and output_file_name:
         ppo.save_using_model_name(output_file_name)
 
-    return ppo.reward_seq
+    return ppo.rewards_seq
 
 
 def model_engine(module_list, module_debug, job_cols=0, window_size=0, sys_size=0,
@@ -73,7 +73,6 @@ def model_engine(module_list, module_debug, job_cols=0, window_size=0, sys_size=
     :param output_file: [str] :- File path if the where the new weights will be saved.
     :return: None
     """
-    cqsim_gym = CqsimEnv(module_list, module_debug,
-                         job_cols, window_size, do_render)
+    cqsim_gym = CqsimEnv(module_list, module_debug, job_cols, window_size, do_render)
     return model_training(cqsim_gym, window_size=window_size, sys_size=sys_size, is_training=is_training,
                 weights_file_name=weights_file, output_file_name=output_file, learning_rate=learning_rate, gamma=reward_discount, batch_size=batch_size, layer_size=layer_size)

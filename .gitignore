@@ -1,1 +1,9 @@
 __*
+
+# Editor Cruft
+.idea
+.vscode
+*.swp
+
+# Virtual Environment
+.venv

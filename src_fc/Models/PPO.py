@@ -61,10 +61,8 @@ class PPO():
         self.hidden1_size = layer_size[0]
         self.hidden2_size = layer_size[1]
 
-        self.actor_net = ActorNet(
-            num_inputs, self.hidden1_size, self.hidden2_size, num_outputs)
-        self.critic_net = CriticNet(
-            num_inputs, self.hidden1_size, self.hidden2_size)
+        self.actor_net = ActorNet(num_inputs, self.hidden1_size, self.hidden2_size, num_outputs)
+        self.critic_net = CriticNet(num_inputs, self.hidden1_size, self.hidden2_size)
 
         self.batch_size = batch_size
         self.gamma = gamma
@@ -80,10 +78,8 @@ class PPO():
         self.rewards_seq = []
         self.num_inputs = num_inputs
 
-        self.actor_optimizer = optim.Adam(
-            self.actor_net.parameters(), lr=self.lr)
-        self.critic_net_optimizer = optim.Adam(
-            self.critic_net.parameters(), lr=self.lr)
+        self.actor_optimizer = optim.Adam(self.actor_net.parameters(), lr=self.lr)
+        self.critic_net_optimizer = optim.Adam(self.critic_net.parameters(), lr=self.lr)
 
     def forward(self, x):
         x = torch.reshape(x, (-1, 2, 1))

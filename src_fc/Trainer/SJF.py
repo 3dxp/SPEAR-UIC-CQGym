@@ -9,11 +9,10 @@ def model_training(env, do_render=False):
     while not done:
         env.render()
         action = -1
-        early_submit = float('Inf')
-        for i, v in enumerate(obs.wait_job):
-            if v['submit'] < early_submit:
-                action = i
-                early_submit = v['submit']
+        minjob = min(obs.wait_job, key=lambda x: x['reqTime'])
+        if minjob is not None:
+            action = obs.wait_job.index(minjob)
+
         new_obs, done, reward = env.step(action)
 
 
