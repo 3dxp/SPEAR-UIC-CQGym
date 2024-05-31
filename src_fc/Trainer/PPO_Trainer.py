@@ -20,7 +20,7 @@ def get_action_from_output_vector(output_vector, wait_queue_size, is_training):
 def model_training(env, weights_file_name=None, is_training=False, output_file_name=None,
                    window_size=50, sys_size=0, learning_rate=0.1, gamma=0.99, batch_size=10, do_render=False, layer_size=[]):
     use_cuda = torch.cuda.is_available()
-    device = 'cpu'  #torch.device("cuda" if use_cuda else "cpu")
+    torch.device("cuda" if use_cuda else "cpu")
     num_inputs = window_size * 2 + sys_size * 1
     ppo = PPO(env, num_inputs, window_size, std=0.0, window_size=window_size,
               learning_rate=learning_rate, gamma=gamma, batch_size=batch_size, layer_size=layer_size)
